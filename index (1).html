@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .stealth {
+            width: 1000px;
+            margin: auto;
+        }
+
+        .stealth>div {
+            flex: 1;
+        }
+
+        .stealth>div img {
+            width: 100%;
+        }
+
+        .stealth-arrow img {
+            width: 100px !important;
+        }
+
+        .stealth-arrow img.aleft {
+            position: absolute;
+            left: 30px;
+        }
+
+        .stealth-arrow img.aright {
+            position: absolute;
+            right: 30px;
+        }
+
+        .widget-btn {
+            position: absolute;
+            top: 105px;
+            left: 167px;
+        }
+
+        @media (max-width: 767px) {
+            .stealth {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .stealth-right {
+                padding-top: 20px;
+            }
+
+            .stealth-arrow img {
+                width: 65px !important;
+            }
+
+            .widget-btn {
+                position: absolute;
+                top: 105px;
+                left: 100px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            .stealth {
+                width: 100%;
+            }
+
+            .stealth-arrow img {
+                width: 65px !important;
+            }
+
+            .widget-btn {
+                position: absolute;
+                top: 90px;
+                left: 115px;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .stealth-arrow img {
+                width: 125px !important;
+            }
+
+            .widget-btn {
+                position: absolute;
+                top: 130px;
+                left: 162px;
+            }
+        }
+    </style>
+
+    <script src="https://connect.facebook.net/en_US/sdk.js" defer></script>
+    <script defer>
+        function embed_mclc(fb_ok) {
+            if (fb_ok) {
+                var script = document.createElement("script");
+                script.src = "//widget.manychat.com/315646012457186.js";
+                document.head.appendChild(script);
+            }
+        }
+
+        function toggleWidget(fb_ok) {
+            var widget = document.getElementById('stealth-id');
+
+            console.log('state: ', fb_ok);
+
+            if (fb_ok) {
+                widget.style.display = 'block';
+                return
+            }
+
+            widget.style.display = 'none';
+        }
+
+        (function () {
+            const vm = this
+
+            // Manychat fb script
+            // let fbScript = document.createElement("script");
+
+            // fbScript.setAttribute("src", "https://connect.facebook.net/en_US/sdk.js");
+            // fbScript.setAttribute("defer", '');
+
+            // document.head.appendChild(fbScript);
+
+            var fb_ok = false;
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '386440791957243',
+                    status: true,
+                    xfbml: true,
+                    version: 'v14.0'
+                });
+
+                FB.getLoginStatus(function (response) {
+                    console.log(response);
+
+                    if (response.status === 'connected' || response.status === 'not_authorized') {
+                        fb_ok = true;
+                        toggleWidget(fb_ok);
+                        console.log('logged in');
+                    }
+                    else {
+                        fb_ok = false;
+                        toggleWidget(fb_ok);
+                        console.log('not login');
+                    }
+
+                    embed_mclc(fb_ok);
+                });
+            };
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="stealth-id" class="stealth" style="display: flex">
+        <!-- <div class="stealth" style="display: flex"> -->
+        <div class="stealth-left">
+            <img src="https://trainingconfirmation.com/image/stealth_demo/ipad_stack.webp" alt="graphics" />
+        </div>
+
+        <div class="stealth-right" style="position: relative">
+            <img src="https://trainingconfirmation.com/image/stealth_demo/headline_plain.webp" alt="graphics" />
+
+            <div class="stealth-arrow">
+                <img class="aleft" src="https://trainingconfirmation.com/image/stealth_demo/arrow_1.webp"
+                    alt="graphics" />
+                <img class="aright" src="https://trainingconfirmation.com/image/stealth_demo/arrow_2.webp"
+                    alt="graphics" />
+            </div>
+
+            <!-- Manychat fb button -->
+            <div class="mcwidget-embed widget-btn" data-widget-id="17486677"></div>
+        </div>
+    </div>
+</body>
+
+</html>
